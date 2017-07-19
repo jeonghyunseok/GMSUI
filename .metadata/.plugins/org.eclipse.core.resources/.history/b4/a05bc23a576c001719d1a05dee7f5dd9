@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Page</title>
+</head>
+<body>
+	<h1 style="font-size:80px; text-align:center;">My Page<h1>
+	<hr />
+	<h1>Hello!!</h1>	
+	<a href="../index.html">메인으로 가기</a>
+	
+</body>
+</html>

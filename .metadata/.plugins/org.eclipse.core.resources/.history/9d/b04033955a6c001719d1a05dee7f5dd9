@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Page</title>
+<style>
+.text-center{text-align:center;}
+.border-black{border: 1px solid black;}
+.width-30pro{width:30%;}
+.text-deconone{text-decoration: none}
+.margine-0auto{margin:0 auto}
+.list-none{list-style-type:none}
+</style>
+
+</head>
+<body>
+	<h1 style="font-size:80px;" class="text-center">My Page<h1>
+	<hr />
+	<h1>Hello!!</h1>	
+	<a href="../index.html">메인으로 가기</a>
+	
+</body>
+</html>

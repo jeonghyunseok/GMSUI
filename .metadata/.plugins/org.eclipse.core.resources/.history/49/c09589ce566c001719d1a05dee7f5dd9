@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello HTML</title>
+<style>
+.text-center{text-align:center;}
+.border-black{border: 1px solid black;}
+.width-30pro{width:30%;}
+.text-deconone{text-decoration: none}
+</style>
+</head>
+<body>
+<div id="wrapper" style="width:100%;">
+<h1 class="text-center">INDEX<h1>
+	<hr/>
+	
+	<table style="width: 80%; border-collapse: collapse;">
+		<tr>
+			<td class="border-black text-center width-30pro">
+			<a href="member/login.html" class=".text-deconone">로그인</a></td>
+			<td class="border-black text-center width-30pro">
+			<a href="member/login.html" class=".text-deconone">회원가입</a></td>
+			<td class="border-black text-center width-30pro">
+			<a href="board/board_list.html" class=".text-deconone": none">게시판</a></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td>
+				 <ul style="list-style-type:none;width: 80%;margin:0 auto">
+				 	<li style="border: 1px solid black;">게시글 쓰기</li>
+				 	<li style="border: 1px solid black;">게시글 목록</li>
+				 	<li style="border: 1px solid black;">게시글 수정</li>
+				 	<li style="border: 1px solid black;">게시글 삭제</li>
+				 </ul>
+			</td>
+		</tr>		
+	</table>
+	</div>
+</body>
+</html>
