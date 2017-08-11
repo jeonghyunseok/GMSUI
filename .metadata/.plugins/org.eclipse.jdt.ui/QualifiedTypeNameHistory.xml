@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="javax.xml.ws.Dispatch"/>
+<fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+<fullyQualifiedTypeName name="com.gms.web.util.DispatcherServlet"/>
+<fullyQualifiedTypeName name="org.apache.taglibs.standard.lang.jpath.expression.SubstringAfterFunction"/>
+<fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="com.gms.web.command.Commandable"/>
+<fullyQualifiedTypeName name="com.gms.web.constants.Extention"/>
+<fullyQualifiedTypeName name="java.nio.file.Path"/>
+<fullyQualifiedTypeName name="com.gms.web.factory.CommandFactory"/>
+<fullyQualifiedTypeName name="com.gms.web.constants.Action"/>
+<fullyQualifiedTypeName name="com.gms.web.command.MoveCommand"/>
+<fullyQualifiedTypeName name="com.gms.web.dao.MemberDAO"/>
+<fullyQualifiedTypeName name="com.gms.web.dao.MemberDAOImpl"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.generic.GETFIELD"/>
+<fullyQualifiedTypeName name="com.gms.web.service.MemberService"/>
+<fullyQualifiedTypeName name="com.gms.web.service.MemberServiceImpl"/>
+<fullyQualifiedTypeName name="com.sun.corba.se.spi.orbutil.fsm.Guard.Result"/>
+<fullyQualifiedTypeName name="jdk.nashorn.internal.ir.RuntimeNode.Request"/>
+<fullyQualifiedTypeName name="org.apache.catalina.connector.Request"/>
+<fullyQualifiedTypeName name="com.gms.web.util.Separator"/>
+<fullyQualifiedTypeName name="com.gms.web.domain.MemberBean"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+</qualifiedTypeNameHistroy>

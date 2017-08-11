@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;sql&apos;&#x0D;&#x0A;- Original project: &apos;GMS2&apos;&#x0D;&#x0A;- Destination element: &apos;sql&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     gms_ddl.sql&#x0D;&#x0A;     gms_dml.sql&#x0D;&#x0A;     GMS.exerd" description="Copy files" element1="src/com/gms/web/sql/gms_ddl.sql" element2="src/com/gms/web/sql/gms_dml.sql" element3="src/com/gms/web/sql/GMS.exerd" files="3" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1500950721998" target="/GMS/WebContent/sql" units="0" version="1.0"/>
+</session>
