@@ -17,5 +17,7 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSP Projects/jars/servlet-api.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSP Projects/jars/standard.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/1027/Downloads/jstl-1.2 (1).jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSP Projects/lombok.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/JSP Projects/eclipse/jee-neon/eclipse/lombok.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<jsp:include page="../common/common_head.jsp"/>
+
+<div id="container">
+	<table id="member_list_tab">
+		<tr>
+		<th style="width: 5%;">NO</th>
+		<th style="width: 10%;">아이디</th>
+		<th style="width: 10%;">이름</th>
+		<th style="width: 10%;">생년월일</th>
+		<th style="width: 15%;">전 화</th>
+		<th style="width: 15%;">이메일</th>
+		<th style="width: 10%;">수강 과목</th>
+		<th style="width: 10%;">등록일</th>
+		<th style="width: 10%;">수정/삭제</th>
+		</tr>
+			<tr>
+		<c:forEach var="i" item="${requestScope.list} ">
+		<td>NO</td>
+		<td>아이디</td>
+		<td >이름</td>
+		<td >생년월일</td>
+		<td >전 화</td>
+		<td >이메일</td>
+		<td >수강 과목</td>
+		<td >등록일</td>
+		<td>수정/삭제</td>
+		</tr>
+	
+	</table>
+</div>
+<jsp:include page="../common/footer.jsp"></jsp:include>

@@ -2,8 +2,12 @@ package com.gms.web.constants;
 
 public class SQL {
 	public static final String MEMBER_INSERT = String.format(
-			"INSERT INTO %s(%s, %s, %s, %s, %s)VALUES(?,?,?,?,SYSDATE)", DB.TABLE_MEMBER, DB.MEMBER_ID,
-			DB.MEMBER_PASSWORD, DB.MEMBER_NAME, DB.MEMBER_SSN, DB.MEMBER_REGDATE);
+			"INSERT INTO %s( %s, %s, %s, %s, %s, %s, %s, %s)VALUES(?,?,?,?,SYSDATE,?,?,?)", DB.TABLE_MEMBER, DB.MEMBER_ID,
+			DB.MEMBER_PASSWORD, DB.MEMBER_NAME,DB.MEMBER_SSN,DB.MEMBER_REGDATE,DB.MEMBER_PHONE,DB.EMAIL,DB.PROFILE);
+	
+   public static final String MAJOR_INSERT=String.format("INSERT INTO MAJOR(major_id, title, member_id, subj_id) VALUES(?,?,?,?)", 
+			   DB.MAJOR_ID, DB.TITLE,DB.MEMBER_ID, DB.SUBJ_ID);
+	
 	public static final String MEMBER_LIST = String.format("SELECT * FROM %s", DB.TABLE_MEMBER);
 	public static final String MEMBER_FINDBYNAME = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,
 			DB.MEMBER_NAME);
@@ -17,7 +21,7 @@ public class SQL {
 
 	public static final String BOARD_INSERT = String.format(
 			"INSERT INTO %s(%s, %s, %s, %s, %s, %s)VALUES( article_seq.nextval,?, ?, ?, SYSDATE, 0 )", DB.TABLE_BOARD,
-			DB.BOARD_ARTICLE_SEQ, DB.BOARD_ID, DB.BOARD_TITLE, DB.BOARD_CONTENT, DB.BOARD_REGDATE, DB.BOARD_HITCOUNT);
+			DB.BOARD_ARTICLE_SEQ, DB.BOARD_ID, DB.TITLE, DB.BOARD_CONTENT, DB.BOARD_REGDATE, DB.BOARD_HITCOUNT);
 	public static final String BOARD_LIST = String.format("SELECT * FROM Board", DB.TABLE_BOARD);
 	public static final String BOARD_SELECTBYID = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ID);
@@ -25,7 +29,13 @@ public class SQL {
 	public static final String BOARD_SELECTBYSEQ = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ARTICLE_SEQ);
 	public static final String BOARD_UPDATE = String.format("UPDATE %s SET %s=?,%s=? WHERE %s=?", DB.TABLE_BOARD,
-			DB.BOARD_TITLE, DB.BOARD_CONTENT, DB.BOARD_ARTICLE_SEQ);
+			DB.TITLE, DB.BOARD_CONTENT, DB.BOARD_ARTICLE_SEQ);
 	public static final String BOARD_DELETE = String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ARTICLE_SEQ);
+	public static final String STUDENT_LIST=" select t.* "
+			+" from (select rownum rnum, s.* "
+					+" from student s)t"
+					;
 }
+
+

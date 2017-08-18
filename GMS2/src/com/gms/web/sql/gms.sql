@@ -8,8 +8,8 @@
 -- [6]GRADE_TAB
 -- [7]BOARD_TAB
 --*************************
-DROP SEQUENCE Grade_seq;
-
+select *from major;
+select *from member;
 CREATE SEQUENCE seq
 START WITH 2000
 INCREMENT BY 1
@@ -22,9 +22,13 @@ NOCYCLE;
 --major_id,title
 --*************************
 --DDL
+select *from major;
+select *from MEMBER;
+alter table major add member_id varchar2(10);
 CREATE TABLE Major(
 	major_id VARCHAR2(10),
 	title VARCHAR2(10),
+	
 	PRIMARY KEY(major_id)
 );
 
@@ -240,5 +244,7 @@ WHERE s.member_id=m.member_id;
 SELECT * FROM Member m,Board b
 WHERE m.id=b.id
 ORDER BY article_seq DESC;
+
+
 
 

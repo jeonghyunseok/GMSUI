@@ -37,3 +37,6 @@
 8월 02, 2017 21:50:31.31 NEW SESSION
 8월 02, 2017 21:50:31.31 [5656:5860:0802/215031.316:ERROR:ssl_client_socket_impl.cc(1054)] handshake failed; returned -1, SSL error code 1, net_error -103
 8월 02, 2017 21:50:41.85 [5656:5860:0802/215041.854:ERROR:ssl_client_socket_impl.cc(1054)] handshake failed; returned -1, SSL error code 1, net_error -103
+
+8월 16, 2017 21:10:17.61 NEW SESSION
+8월 16, 2017 21:10:17.61 [6280:8932:0816/211017.613:ERROR:gcm_channel_status_request.cc(127)] GCM channel request failed.

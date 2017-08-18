@@ -23,7 +23,20 @@
 <fullyQualifiedTypeName name="com.sun.corba.se.spi.orbutil.fsm.Guard.Result"/>
 <fullyQualifiedTypeName name="jdk.nashorn.internal.ir.RuntimeNode.Request"/>
 <fullyQualifiedTypeName name="org.apache.catalina.connector.Request"/>
-<fullyQualifiedTypeName name="com.gms.web.util.Separator"/>
-<fullyQualifiedTypeName name="com.gms.web.domain.MemberBean"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="lombok.Getter"/>
+<fullyQualifiedTypeName name="lombok.Setter"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.ws.api.FeatureListValidatorAnnotation"/>
+<fullyQualifiedTypeName name="com.gms.web.domain.MemberBean"/>
+<fullyQualifiedTypeName name="com.sun.corba.se.pept.transport.Connection"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.gms.web.domain.MajorBean"/>
+<fullyQualifiedTypeName name="com.gms.web.constants.SQL"/>
+<fullyQualifiedTypeName name="com.gms.web.util.Separator"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="lombok.Data"/>
+<fullyQualifiedTypeName name="com.gms.web.constants.DB"/>
+<fullyQualifiedTypeName name="com.gms.web.domain.StudentBean"/>
 </qualifiedTypeNameHistroy>

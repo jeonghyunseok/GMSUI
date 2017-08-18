@@ -7,15 +7,15 @@ import java.util.Map;
 import com.gms.web.domain.MemberBean;
 
 public interface MemberService {
-	public String addMember(MemberBean member);
+	public String addMember(Map<String,Object>map);
 
-	public List<MemberBean> getMembers();
+	public List<?> getMembers();
 
 	public String countMembers();
 
 	public MemberBean findById(String id);
 
-	public List<MemberBean> findByName(String name);
+	public List<?> findByName(String name);
 
 	public String modify(MemberBean memeber);
 

@@ -1,0 +1,197 @@
+package com.gms.web.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.gms.web.constants.DB;
+import com.gms.web.constants.SQL;
+import com.gms.web.constants.Vendor;
+import com.gms.web.domain.MajorBean;
+import com.gms.web.domain.MemberBean;
+import com.gms.web.factory.DatabaseFactory;
+
+
+
+public class MemberDAOImpl implements MemberDAO {
+	Connection conn;
+	public static MemberDAOImpl getInstance() {
+		return new MemberDAOImpl();
+	}
+	private MemberDAOImpl(){
+		conn=null;
+	}
+
+	
+	@Override
+	public String insert(Map<?,?>map) {
+		int rs = 0;
+		MemberBean member=(MemberBean)map.get("member");
+		
+		@SuppressWarnings("unchecked")
+		List<MajorBean> list =(List<MajorBean>)map.get("major");
+		PreparedStatement pstmt = null;
+		try {
+			conn= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection();
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(SQL.MEMBER_INSERT);
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getSsn());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getEmail());
+			pstmt.setString(7, member.getProfile());
+			System.out.println("***"+SQL.MEMBER_INSERT);
+			pstmt.executeUpdate();
+			System.out.println("+++");
+			for(int i=0;i<list.size();i++){
+			pstmt=conn.prepareStatement(SQL.MAJOR_INSERT);
+			pstmt.setString(1, list.get(i).getMajor_id());
+			pstmt.setString(2, list.get(i).getTitle());
+			pstmt.setString(3, list.get(i).getSubjId());
+			pstmt.setString(4, list.get(i).getId());
+			rs=pstmt.executeUpdate();
+			System.out.println("***"+SQL.MAJOR_INSERT);
+			System.out.println("***"+rs);
+			}
+			conn.commit();
+		}catch (SQLException e) {
+			e.printStackTrace();
+			if(conn!=null){
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return rs;
+	}
+
+	@Override
+	public List<MemberBean> selectAll() {
+		List<MemberBean> list = new ArrayList<>();
+		try {
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
+					.prepareStatement(SQL.MEMBER_COUNT).executeQuery();
+			MemberBean member = null;
+			while (rs.next()) {
+				member = new MemberBean();
+				member.setId(rs.getString(DB.MEMBER_ID));
+				member.setName(rs.getString(DB.MEMBER_NAME));
+				member.setPassword(rs.getString(DB.MEMBER_PASSWORD));
+				member.setSsn(rs.getString(DB.MEMBER_SSN));
+				member.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public String count() {
+		int count = 0;
+		try {
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
+					.prepareStatement(SQL.MEMBER_COUNT).executeQuery();
+			if (rs.next()) {
+				count = Integer.parseInt(rs.getString("count"));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return String.valueOf(count);
+	}
+
+	@Override
+	public MemberBean selectById(String id) {
+		MemberBean member = null;
+		try {
+			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				member=new MemberBean();
+				member.setId(rs.getString(DB.MEMBER_ID));
+				member.setName(rs.getString(DB.MEMBER_NAME));
+				member.setPassword(rs.getString(DB.MEMBER_PASSWORD));
+				member.setSsn(rs.getString(DB.MEMBER_SSN));
+				member.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return member;
+	}
+
+	@Override
+	public List<MemberBean> selectByName(String name) {
+		List<MemberBean> list = new ArrayList<>();
+		try {
+			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection().prepareStatement(SQL.MEMBER_FINDBYNAME);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			MemberBean member = null;
+			while (rs.next()) {
+				member = new MemberBean();
+				member.setId(rs.getString(DB.MEMBER_ID));
+				member.setName(rs.getString(DB.MEMBER_NAME));
+				member.setPassword(rs.getString(DB.MEMBER_PASSWORD));
+				member.setSsn(rs.getString(DB.MEMBER_SSN));
+				member.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public String update(MemberBean bean) {
+		String rs = "";
+		MemberBean temp = selectById(bean.getId());
+		String name = (bean.getName().equals("")) ? temp.getId() : bean.getName();
+		String password = (bean.getPassword().equals("")) ? temp.getPassword() : bean.getPassword();
+		String ssn = (bean.getSsn().equals("")) ? temp.getSsn() : bean.getSsn();
+		try {
+			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection().prepareStatement(SQL.MEMBER_UPDATE);
+			pstmt.setString(1, name);
+			pstmt.setString(2, password);
+			pstmt.setString(3, ssn);
+			pstmt.setString(4, bean.getId());
+			rs = String.valueOf(pstmt.executeUpdate());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rs;
+	}
+
+	@Override
+	public String delete(String id) {
+		int rs = 0;
+		try {
+			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection().prepareStatement(SQL.MEMBER_DELETE);
+			pstmt.setString(1, id);
+			rs = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return String.valueOf(rs);
+	}
+}

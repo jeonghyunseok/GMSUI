@@ -1,57 +1,98 @@
 package com.gms.web.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.gms.web.constants.DB;
 import com.gms.web.constants.SQL;
 import com.gms.web.constants.Vendor;
-import com.gms.web.dao.MemberDAO;
+import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
+import com.gms.web.domain.StudentBean;
 import com.gms.web.factory.DatabaseFactory;
 
 
-public class MemberDAOImpl implements MemberDAO {
 
+public class MemberDAOImpl implements MemberDAO {
+	Connection conn;
 	public static MemberDAOImpl getInstance() {
 		return new MemberDAOImpl();
 	}
-	private MemberDAOImpl(){}
+	private MemberDAOImpl(){
+		conn=null;
+	}
+
 	
 	@Override
-	public String insert(MemberBean member) {
+	public String insert(Map<?,?>map) {
 		int rs = 0;
+		MemberBean member=(MemberBean)map.get("member");
+		
+		@SuppressWarnings("unchecked")
+		List<MajorBean> list =(List<MajorBean>)map.get("major");
+		PreparedStatement pstmt = null;
 		try {
-			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
-					.getConnection().prepareStatement(SQL.BOARD_INSERT);
+			conn= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
+					.getConnection();
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(SQL.MEMBER_INSERT);
 			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getName());
-			pstmt.setString(3, member.getPassword());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getName());
 			pstmt.setString(4, member.getSsn());
-			rs = pstmt.executeUpdate();
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getEmail());
+			pstmt.setString(7, member.getProfile());
+			System.out.println("***"+SQL.MEMBER_INSERT);
+			pstmt.executeUpdate();
+			System.out.println("+++");
+			for(int i=0;i<list.size();i++){
+			pstmt=conn.prepareStatement(SQL.MAJOR_INSERT);
+			pstmt.setString(1, list.get(i).getMajor_id());
+			pstmt.setString(2, list.get(i).getTitle());
+			pstmt.setString(3, list.get(i).getId());
+			pstmt.setString(4, list.get(i).getSubjId());
+			rs=pstmt.executeUpdate();
+			System.out.println("***"+SQL.MAJOR_INSERT);
+			System.out.println("***"+rs);
+			}
+			conn.commit();
 		}catch (SQLException e) {
 			e.printStackTrace();
+			if(conn!=null){
+				try {
+					conn.rollback();
+				} catch (SQLException ex) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return String.valueOf(rs);
 	}
 
 	@Override
-	public List<MemberBean> selectAll() {
-		List<MemberBean> list = new ArrayList<>();
+	public List<?> selectAll() {
+		List<StudentBean> list = new ArrayList<>();
 		try {
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
-					.prepareStatement(SQL.MEMBER_COUNT).executeQuery();
-			MemberBean member = null;
+					.prepareStatement(SQL.STUDENT_LIST).executeQuery();
+			StudentBean member = null;
 			while (rs.next()) {
-				member = new MemberBean();
-				member.setId(rs.getString(DB.MEMBER_ID));
+				member = new StudentBean();
+				member.setNum(rs.getString(DB.NUM));
+				member.setId(rs.getString(DB.ID));
 				member.setName(rs.getString(DB.MEMBER_NAME));
-				member.setPassword(rs.getString(DB.MEMBER_PASSWORD));
+				member.setEmail(rs.getString(DB.EMAIL));
 				member.setSsn(rs.getString(DB.MEMBER_SSN));
 				member.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+				member.setPhone(rs.getString(DB.MEMBER_PHONE));
+				member.setTitle(rs.getString(DB.TITLE));
 				list.add(member);
 			}
 		} catch (SQLException e) {

@@ -1,6 +1,28 @@
 -- id, password, name, ssn, regdate
 SELECT * FROM Member;
 SELECT * FROM TAB;
+SELECT * FROM SUBJECT;
+SELECT * FROM major;
+DROP view student;
+
+
+select *from student;
+create view student (num,id,name,ssn,regdate,phone,email,title)
+as
+select rownum, t.member_id, t.name,t.ssn,t.regdate,t.phone,t.email,t.title
+from (
+    select a.member_id , a.name , rpad(substr(a.ssn,1,8),14, '*') ssn, a.phone , a.email , 
+    listagg(s.title, ',') within group (order by s.title) title, to_char(a.regdate,'yyyy/mm/dd') regdate 
+    from member a
+        left outer join major m on a.member_id like m.member_id
+        left join subject s on m.subj_id like s.subj_id
+    group by a.member_id, a.name, a.ssn, a.phone, a.email, a.regdate
+    order by regdate 
+) t
+order by rownum desc
+;
+
+
 
 CREATE SEQUENCE article_seq
 START WITH 1000
@@ -28,6 +50,7 @@ CREATE TABLE Prof(
 <!-- id에서 member_id로 컬럼 명 변경 -->
 ALTER TABLE Member
 RENAME COLUMN id TO member_id;
+
 
 ALTER TABLE Board
 RENAME COLUMN id TO member_id;

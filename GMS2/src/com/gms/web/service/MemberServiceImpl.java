@@ -1,13 +1,13 @@
 package com.gms.web.service;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
-import com.gms.web.dao.MemberDAO;
 import com.gms.web.dao.MemberDAOImpl;
+import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
-import com.gms.web.service.MemberService;
 
 
 public class MemberServiceImpl implements MemberService {
@@ -20,12 +20,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String addMember(MemberBean member) {
-		return MemberDAOImpl.getInstance().insert(member).equals("1") ? "성공" : "실패";
+	public String addMember(Map<String,Object>map) {
+		System.out.println("member service 진입");
+		MemberBean m =(MemberBean)map.get("member");
+		System.out.println("넘어온 회원 이름"+m.toString());
+		
+		@SuppressWarnings("unchecked")
+		List<MajorBean>list=(List<MajorBean>)map.get("major");
+		System.out.println("넘어온 수강과목"+list);
+		MemberDAOImpl.getInstance().insert(map);
+		return null;
 	}
 
 	@Override
-	public List<MemberBean> getMembers() {
+	public List<?> getMembers() {
 
 		return MemberDAOImpl.getInstance().selectAll();
 	}

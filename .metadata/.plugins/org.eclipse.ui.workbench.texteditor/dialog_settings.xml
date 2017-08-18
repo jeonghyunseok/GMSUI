@@ -9,18 +9,23 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="dir" key="selection"/>
+		<item value="DROP" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="directory"/>
-			<item value=".html"/>
-			<item value="class=&quot;gms-text-deconone&quot;"/>
-			<item value="class=&quot;gms-border-black"/>
+			<item value="drop"/>
+			<item value="rownum"/>
+			<item value="th"/>
+			<item value="mainload"/>
+			<item value="&#x09;&#x09;&lt;th style=&quot;width: 10%;&quot;&gt;이름&lt;/th&gt;"/>
+			<item value="String rs"/>
+			<item value="major"/>
+			<item value="onclick"/>
 		</list>
 		<list key="replacehistory">
+			<item value="td"/>
 			<item value="dir"/>
 			<item value=".jsp"/>
 			<item value=""/>
@@ -30,7 +35,7 @@
 		<item value="288" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="390" key="DIALOG_HEIGHT"/>
-		<item value="664" key="DIALOG_X_ORIGIN"/>
-		<item value="178" key="DIALOG_Y_ORIGIN"/>
+		<item value="1114" key="DIALOG_X_ORIGIN"/>
+		<item value="291" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
