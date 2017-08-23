@@ -1,6 +1,0 @@
-package com.gms.web.domain;
-
-public class MajorBean {
-	private String major_id, title, id, subjId;
-
-}

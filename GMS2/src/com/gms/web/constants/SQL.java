@@ -32,10 +32,12 @@ public class SQL {
 			DB.TITLE, DB.BOARD_CONTENT, DB.BOARD_ARTICLE_SEQ);
 	public static final String BOARD_DELETE = String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ARTICLE_SEQ);
-	public static final String STUDENT_LIST=" select t.* "
-			+" from (select rownum rnum, s.* "
-					+" from student s)t"
-					;
+	   public static final String STUDENT_LIST= " select t.* "
+	            + " from (select rownum rnum, s.* "
+	            + " from student s)t " 
+	            + " where t.rnum between ? and ? ";
+	   public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) AS count FROM %s", DB.TABLE_STUDENT);
+
 }
 
 

@@ -1,0 +1,33 @@
+package com.gms.web.proxy;
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import lombok.Setter;
+
+public class PageProxy extends Proxy{
+	@Setter
+	
+	Integer pageSize,blockSize;
+	public PaginationProxy(HttpServletRequest request) {
+		super(request);
+		
+	}
+	private static BlockHandler ph=new  BlockHandler();
+	private static PageHandler rh=new  PageHandler();
+	
+	@Override
+	public void execute() {
+		request.setAttribute("prevBlock",ph.attr()[0]);
+		request.setAttribute("theNumberOfPages",ph.attr()[1]);
+		request.setAttribute("startPage",ph.attr()[2]);
+		request.setAttribute("endPage",ph.attr()[3]);
+		request.setAttribute("prevBlock",bh.attr()[0]);
+		request.setAttribute("endBlock",bh.attr()[1]);
+		request.setAttribute("list",list);
+	
+		
+	}
+
+}

@@ -9,7 +9,8 @@ import com.gms.web.domain.MemberBean;
 public interface MemberService {
 	public String addMember(Map<String,Object>map);
 
-	public List<?> getMembers();
+
+	public List<?> list(Object o);
 
 	public String countMembers();
 

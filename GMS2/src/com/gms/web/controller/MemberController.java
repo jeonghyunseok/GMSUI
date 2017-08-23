@@ -1,6 +1,7 @@
 package com.gms.web.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.gms.web.constants.Action;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
-import com.gms.web.domain.StudentBean;
+
+import com.gms.web.proxy.BlockHandler;
+import com.gms.web.proxy.PageHandler;
+import com.gms.web.proxy.PageProxy;
 import com.gms.web.service.MemberService;
 import com.gms.web.service.MemberServiceImpl;
 import com.gms.web.util.DispatcherServlet;
 import com.gms.web.util.ParamsIterator;
 import com.gms.web.util.Separator;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 
 
 
@@ -74,36 +78,35 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		System.out.println("id"+map.get("id"));
 		DispatcherServlet.send(request, response);
 		break;
-	case Action.LIST:
-		System.out.println("Member List Enter");
-		
-		@SuppressWarnings("unchecked")
-		List<StudentBean> memberlist=(List<StudentBean>)service.getMembers();
-		
-		System.out.println("DB에서 가져온 Member List"+memberlist);
-
-		request.setAttribute("prevBlock", "0");
-		request.setAttribute("pageNumber", request.getParameter("pageNumber"));
-		request.setAttribute("list",memberlist);
-		
-		request.setAttribute("theNumberOfPages", memberlist.size()/5);
-		request.setAttribute("startPage","1");
-		
-		int theNumberOfPages=
-				(memberlist.size()/5!=0)?
-						memberlist.size()/5+1
-						:memberlist.size()/5;
-		System.out.println("페이지 수"+theNumberOfPages);
-		
-		request.setAttribute("theNumberOfPages", theNumberOfPages);
-		request.setAttribute("endPage", String.valueOf(theNumberOfPages));
-		DispatcherServlet.send(request, response);
-
-		break;
-	default:
-		break;
-	}
-}
+	  case Action.LIST:
+	         System.out.println("Member List Enter");
+	         PageProxy pxy=new PageProxy(request);
+	         pxy.setPageSize(5);
+	         pxy.setBlockSize(5);
+	         pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers()));
+	         pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+	         int[] arr=PageHandler.attr(pxy);
+	         int[] arr2=BlockHandler.attr(pxy);
+	         pxy.execute(arr2, service.list(arr));
+	         DispatcherServlet.send(request, response);
+	         break;
+	  case Action.UPDATE:
+		  service.modify(service.findById(request.getParameter("id")));
+		  System.out.println("member update Enter");
+		  	 DispatcherServlet.send(request, response);
+		  	break;
+	  case Action.DELETE:
+		  service.remove(request.getParameter("id"));
+		  	System.out.println("member delete Enter");
+		   	response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
+		  	break;
+	  case Action.DETAIL:
+		  request.setAttribute("student",  service.findById(request.getParameter("id")));
+		  System.out.println("member detail Enter");
+		  DispatcherServlet.send(request, response);
+		  break;
+		}
+  	}
  }
 
 

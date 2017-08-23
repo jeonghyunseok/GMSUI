@@ -77,11 +77,15 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<?> selectAll() {
+	public List<?> selectAll(Object o) {
 		List<StudentBean> list = new ArrayList<>();
+		int[] arr=(int[])o;
 		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
-					.prepareStatement(SQL.STUDENT_LIST).executeQuery();
+			conn= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(SQL.STUDENT_LIST);
+			pstmt.setString(1, String.valueOf(arr[0]));
+			pstmt.setString(2, String.valueOf(arr[1]));
+			ResultSet rs=pstmt.executeQuery();
 			StudentBean member = null;
 			while (rs.next()) {
 				member = new StudentBean();
@@ -106,7 +110,7 @@ public class MemberDAOImpl implements MemberDAO {
 		int count = 0;
 		try {
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
-					.prepareStatement(SQL.MEMBER_COUNT).executeQuery();
+					.prepareStatement(SQL.STUDENT_COUNT).executeQuery();
 			if (rs.next()) {
 				count = Integer.parseInt(rs.getString("count"));
 			}

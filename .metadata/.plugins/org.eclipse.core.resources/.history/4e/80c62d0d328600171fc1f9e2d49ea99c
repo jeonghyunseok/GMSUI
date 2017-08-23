@@ -1,0 +1,12 @@
+package com.gms.web.proxy;
+
+import javax.servlet.http.HttpServletRequest;
+
+public class BlockHandler extends PaginationProxy{
+
+	public BlockHandler(HttpServletRequest request) {
+		super(request);
+
+	}
+
+}

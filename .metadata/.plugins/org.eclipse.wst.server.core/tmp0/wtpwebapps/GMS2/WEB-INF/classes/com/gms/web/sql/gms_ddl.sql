@@ -5,6 +5,17 @@ SELECT * FROM SUBJECT;
 SELECT * FROM major;
 DROP view student;
 
+select t.*
+from(select rownum rnum,s.*
+	from student s)t
+where t.rnum between 1 and 5;
+
+select t2.*
+from (select rownum seq, t.*
+	from(select *
+		from student
+		order by num desc)t)t2
+where t2.seq between 6 and 10;
 
 select *from student;
 create view student (num,id,name,ssn,regdate,phone,email,title)

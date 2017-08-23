@@ -33,9 +33,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<?> getMembers() {
+	public List<?> list(Object o) {
 
-		return MemberDAOImpl.getInstance().selectAll();
+		return MemberDAOImpl.getInstance().selectAll(o);
 	}
 
 	@Override
@@ -79,4 +79,6 @@ public class MemberServiceImpl implements MemberService {
 		map.put("user", m);		
 	return map;	
 	}
+
+
 	}

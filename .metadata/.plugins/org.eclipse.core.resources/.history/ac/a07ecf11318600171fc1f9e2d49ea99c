@@ -1,0 +1,30 @@
+package com.gms.web.proxy;
+
+import javax.servlet.http.HttpServletRequest;
+
+public class PageHandler extends PaginationProxy{
+
+	public PageHandler(HttpServletRequest request) {
+		super(request);
+	}
+public Integer[] attr(Integer[] params){
+	Integer[] result=new Integer[2];
+	int theNumberOfRows=params[0];//("theNumberOfAll");
+	int pageNumber=params[1];//("pageNumber");
+	Integer startRow=0, endRow=0;
+	Integer[] rows =new Integer[2];
+	if(pageNumber <= theNumberOfRows / super.pageSize +1){
+		if(pageNumber == 1){
+			startRow =1;
+			endRow = super.pageSize;
+		}else{
+			startRow =(pageNumber -1) * super.pageSize +1;
+			endRow = pageNumber * super.pageSize;
+		}
+	}
+	result[0]=startRow;
+	result[1]=endRow;
+	return result;
+}
+
+}
