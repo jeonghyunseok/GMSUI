@@ -1,0 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<c:forEach var="i" items="${requestScope.list}">
+<h1>${i.search}검색결과</h1>
+	</c:forEach>

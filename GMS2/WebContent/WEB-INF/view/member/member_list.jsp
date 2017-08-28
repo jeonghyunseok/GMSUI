@@ -7,9 +7,9 @@
 <div class="row">
   <div class="col-lg-6" style="width: 500px; margin 0 auto;">
     <div class="input-group" style="margin:0 auto">
-      <input type="text" class="form-control" placeholder="Search">
+      <input type="text" id="searchName" name="searchName" class="form-control" placeholder="Search">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
+        <button class="btn btn-default"  type="button" onclick="searchStudent('${i.name}')">Go!</button>
       </span>
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
@@ -27,6 +27,7 @@
 		<th style="width: 10%;">전화번호</th>
 		<th style="width: 10%;">수정/삭제</th>
 		</tr>
+		
 		<c:forEach var="i" items="${requestScope.list}">
 		<tr>
 		<td>${i.num}</td>
@@ -91,7 +92,6 @@ function updateStudent(id){
 	alert('수정할 id'+id);
 	location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
 }
-
 function deleteStudent(id){
 	alert('삭제할id'+id);
 	location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
@@ -99,6 +99,11 @@ function deleteStudent(id){
 function detailStudent(id){
 	alert('조회할 id'+id);
 	location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
+}
+function searchStudent(){
+	var search=document.getElementById('searchName').value;
+	alert(search);
+	location.href="${ctx}/member.do?action=search&page=member_search&search="+search;	
 }
 </script>
 <jsp:include page="../common/footer.jsp"></jsp:include>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gms.web.command.Command;
 import com.gms.web.constants.Action;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
@@ -27,26 +28,27 @@ import com.gms.web.util.ParamsIterator;
 import com.gms.web.util.Separator;
 
 
-
-
 @WebServlet({"/member.do"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    	
-    
-  @SuppressWarnings("unused")
+@SuppressWarnings("unused")
 protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 Separator.init(request);
 	 MemberBean member=new MemberBean();
 	 MemberService service=MemberServiceImpl.getInstance();
-	 
+	 Map<?, ?> map=null;
+	 PageProxy pxy=new PageProxy(request);
+	 Command cmd=new Command();
+	 pxy.setPageSize(5);
+     pxy.setBlockSize(5);
 	switch (request.getParameter(Action.CMD)) {
 	case Action.MOVE:
 		DispatcherServlet.send(request, response);
 		break;
 	case Action.JOIN:
 		 System.out.println("join 진입");
-		Map<?, ?> map=ParamsIterator.execute(request);
+		map=ParamsIterator.execute(request);
 		member.setId((String)map.get("id"));
 		member.setPassword((String)map.get("password"));
 		member.setName((String)map.get("name"));
@@ -73,40 +75,45 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 		tempMap.put("member", member);
 		tempMap.put("major", list);
 		String rs=service.addMember(tempMap);
-		Separator.cmd.setdir("common");
+		Separator.cmd.setDir("common");
 		Separator.cmd.process();
 		System.out.println("id"+map.get("id"));
 		DispatcherServlet.send(request, response);
 		break;
 	  case Action.LIST:
 	         System.out.println("Member List Enter");
-	         PageProxy pxy=new PageProxy(request);
-	         pxy.setPageSize(5);
-	         pxy.setBlockSize(5);
-	         pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers()));
+      	     pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
 	         pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
-	         int[] arr=PageHandler.attr(pxy);
-	         int[] arr2=BlockHandler.attr(pxy);
-	         pxy.execute(arr2, service.list(arr));
+	         pxy.execute(BlockHandler.attr(pxy), service.list(PageHandler.attr(pxy)));
 	         DispatcherServlet.send(request, response);
 	         break;
 	  case Action.UPDATE:
-		  service.modify(service.findById(request.getParameter("id")));
+		  cmd.setSearch(request.getParameter("id"));
+		  service.modify(service.findById(cmd));
 		  System.out.println("member update Enter");
 		  	 DispatcherServlet.send(request, response);
 		  	break;
+	  case Action.SEARCH: 
+		  System.out.println("member search");
+		  map=ParamsIterator.execute(request);
+		   pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
+	           cmd=PageHandler.attr(pxy);
+	           cmd.setColumn("name");
+	           cmd.setSearch(String.valueOf(map.get("search")));
+	           request.setAttribute("list", service.findByName(cmd));
+	     	   DispatcherServlet.send(request, response);
+		  break;
 	  case Action.DELETE:
-		  service.remove(request.getParameter("id"));
-		  	System.out.println("member delete Enter");
+		  cmd.setSearch(request.getParameter("id"));
+		   	System.out.println("member delete Enter");
 		   	response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
 		  	break;
 	  case Action.DETAIL:
-		  request.setAttribute("student",  service.findById(request.getParameter("id")));
+		  cmd.setSearch(request.getParameter("id"));
+		  request.setAttribute("student",  service.findById(cmd));
 		  System.out.println("member detail Enter");
 		  DispatcherServlet.send(request, response);
 		  break;
 		}
   	}
  }
-
-

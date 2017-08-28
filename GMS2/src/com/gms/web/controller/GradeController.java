@@ -23,9 +23,5 @@ public class GradeController extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  Separator.init(request);
 	  System.out.println("GradeController get 진입");
-		
-		
 		}			
-
-
 }

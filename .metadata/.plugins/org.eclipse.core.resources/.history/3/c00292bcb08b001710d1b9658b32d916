@@ -1,0 +1,28 @@
+package com.gms.web.command;
+
+import com.gms.web.constants.Extention;
+import com.gms.web.constants.PATH;
+
+import lombok.Getter;
+import lombok.Setter;
+public class Command implements Commandable{
+	@Getter @Setter
+protected String dir,action,page,pageNumber,searchWord;
+	@Getter
+	protected String view;
+	@Override
+	public void process() {
+		this.view=
+				(dir.equals("/home"))?
+						"/WEB_INF/view/common/":
+							"";
+				PATH.VIEW+dir+PATH.SEPARARTOR+page+Extention.JSP;
+	}
+	
+	@Override
+	public String toString() {
+		return "Command [dest=" + dir + "/"+page+".jsp"+"action="+action+"]";
+	}
+
+	
+}

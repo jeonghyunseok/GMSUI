@@ -1,22 +1,27 @@
 package com.gms.web.dao;
 
 import java.util.List;
+
+
 import java.util.Map;
 
+import com.gms.web.command.Command;
 import com.gms.web.domain.MemberBean;
+
 
 public interface MemberDAO {
 	public String insert(Map<?,?>map);
 
-	public List<?> selectAll(Object o);
+	public List<?> selectAll(Command cmd);
 
-	public String count();
+	public String count(Command cmd);
 
-	public MemberBean selectById(String id);
+	public MemberBean selectById(Command cmd);
 
-	public List<?> selectByName(String name);
+	public List<?> selectByName(Command cmd);
 
 	public String update(MemberBean memeber);
 
-	public String delete(String id);
+	public String delete(Command cmd);
+
 }

@@ -14,8 +14,10 @@ select t2.*
 from (select rownum seq, t.*
 	from(select *
 		from student
+		where name like '정%'
 		order by num desc)t)t2
-where t2.seq between 6 and 10;
+where t2.seq between 6 and 10
+;
 
 select *from student;
 create view student (num,id,name,ssn,regdate,phone,email,title)

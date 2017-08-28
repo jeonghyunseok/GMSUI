@@ -4,24 +4,24 @@ import java.util.List;
 
 import java.util.Map;
 
+import com.gms.web.command.Command;
 import com.gms.web.domain.MemberBean;
 
 public interface MemberService {
 	public String addMember(Map<String,Object>map);
 
+	public List<?> list(Command cmd);
 
-	public List<?> list(Object o);
+	public String countMembers(Command cmd);
 
-	public String countMembers();
+	public MemberBean findById(Command cmd);
 
-	public MemberBean findById(String id);
-
-	public List<?> findByName(String name);
+	public List<?> findByName(Command cmd);
 
 	public String modify(MemberBean memeber);
-
-	public String remove(String id);
+	
+	public String remove(Command cmd);
 	
 	public Map<String,Object> login(MemberBean member);
-
+	
 }

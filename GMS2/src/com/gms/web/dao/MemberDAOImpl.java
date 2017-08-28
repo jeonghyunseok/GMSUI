@@ -1,6 +1,7 @@
 package com.gms.web.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gms.web.command.Command;
 import com.gms.web.constants.DB;
 import com.gms.web.constants.SQL;
 import com.gms.web.constants.Vendor;
@@ -16,6 +18,8 @@ import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.domain.StudentBean;
 import com.gms.web.factory.DatabaseFactory;
+
+
 
 
 
@@ -77,14 +81,13 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<?> selectAll(Object o) {
+	public List<?> selectAll(Command cmd) {
 		List<StudentBean> list = new ArrayList<>();
-		int[] arr=(int[])o;
 		try {
 			conn= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(SQL.STUDENT_LIST);
-			pstmt.setString(1, String.valueOf(arr[0]));
-			pstmt.setString(2, String.valueOf(arr[1]));
+			pstmt.setString(1, cmd.getStartRow());
+			pstmt.setString(2, cmd.getEndRow());
 			ResultSet rs=pstmt.executeQuery();
 			StudentBean member = null;
 			while (rs.next()) {
@@ -106,7 +109,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public String count() {
+	public String count(Command cmd) {
 		int count = 0;
 		try {
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection()
@@ -122,12 +125,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberBean selectById(String id) {
+	public MemberBean selectById(Command cmd) {
 		MemberBean member = null;
 		try {
 			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
 					.getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
-			pstmt.setString(1, id);
+			pstmt.setString(1, cmd.getSearch());
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				member=new MemberBean();
@@ -144,12 +147,12 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<MemberBean> selectByName(String name) {
+	public List<MemberBean> selectByName(Command cmd) {
 		List<MemberBean> list = new ArrayList<>();
 		try {
 			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
 					.getConnection().prepareStatement(SQL.MEMBER_FINDBYNAME);
-			pstmt.setString(1, name);
+			pstmt.setString(1, cmd.getSearch());
 			ResultSet rs = pstmt.executeQuery();
 			MemberBean member = null;
 			while (rs.next()) {
@@ -170,18 +173,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public String update(MemberBean bean) {
 		String rs = "";
-		MemberBean temp = selectById(bean.getId());
-		String name = (bean.getName().equals("")) ? temp.getId() : bean.getName();
-		String password = (bean.getPassword().equals("")) ? temp.getPassword() : bean.getPassword();
-		String ssn = (bean.getSsn().equals("")) ? temp.getSsn() : bean.getSsn();
 		try {
 			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
 					.getConnection().prepareStatement(SQL.MEMBER_UPDATE);
-			pstmt.setString(1, name);
-			pstmt.setString(2, password);
-			pstmt.setString(3, ssn);
-			pstmt.setString(4, bean.getId());
-			rs = String.valueOf(pstmt.executeUpdate());
+			pstmt.setString(1,bean.getPassword() );
+			pstmt.setString(2,bean.getId());
+					rs = String.valueOf(pstmt.executeUpdate());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -190,16 +187,17 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public String delete(String id) {
+	public String delete(Command cmd) {
 		int rs = 0;
 		try {
 			PreparedStatement pstmt = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD)
 					.getConnection().prepareStatement(SQL.MEMBER_DELETE);
-			pstmt.setString(1, id);
+			pstmt.setString(1, cmd.getSearch());
 			rs = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return String.valueOf(rs);
 	}
+	
 }

@@ -13,8 +13,7 @@ public class SQL {
 			DB.MEMBER_NAME);
 	public static final String MEMBER_FINDBYID = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_MEMBER,
 			DB.MEMBER_ID);
-	public static final String MEMBER_UPDATE = String.format("UPDATE %s SET %s=?, %s=? ,%s=? WHERE %s =?",
-			DB.TABLE_MEMBER, DB.MEMBER_NAME, DB.MEMBER_PASSWORD, DB.MEMBER_SSN, DB.MEMBER_ID);
+	   public static final String MEMBER_UPDATE=String.format("UPDATE %s SET %s=? WHERE %s=?", DB.TABLE_MEMBER, DB.MEMBER_PASSWORD, DB.MEMBER_ID);
 	public static final String MEMBER_DELETE = String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_MEMBER,
 			DB.MEMBER_ID);
 	public static final String MEMBER_COUNT = String.format("SELECT COUNT(*)AS count FROM %s", DB.TABLE_MEMBER);
@@ -32,11 +31,19 @@ public class SQL {
 			DB.TITLE, DB.BOARD_CONTENT, DB.BOARD_ARTICLE_SEQ);
 	public static final String BOARD_DELETE = String.format("DELETE FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ARTICLE_SEQ);
-	   public static final String STUDENT_LIST= " select t.* "
-	            + " from (select rownum rnum, s.* "
+   public static final String STUDENT_LIST= " select t.* "
+		   		+ " from (select rownum rnum, s.* "
 	            + " from student s)t " 
 	            + " where t.rnum between ? and ? ";
-	   public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) AS count FROM %s", DB.TABLE_STUDENT);
+   public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) AS count FROM %s", DB.TABLE_STUDENT);
+   public static final String SEARCH=" select t2.* "
+		   + " from (select rownum seq, t.* "
+			+  " from(select * "
+		   + " from student "
+		   + " where ? like '%' || ? || '%' "
+				+ " order by num desc)t)t2 "
+				+ " where t2.seq between ? and ? "
+				;
 
 }
 

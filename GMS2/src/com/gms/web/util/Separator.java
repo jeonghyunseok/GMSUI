@@ -8,16 +8,14 @@ import com.gms.web.factory.CommandFactory;
 public class Separator {
 	public static Command cmd=new Command();
 	public static void init(HttpServletRequest request){
-		String action=request.getParameter("action");
-		String page=request.getParameter("page");
 		String servletPath=request.getServletPath();
+		cmd=CommandFactory.createCommand(servletPath.substring(1,servletPath.indexOf(".")),
+				request.getParameter("action"),
+				request.getParameter("page"),
+				request.getParameter("pageNumber"),
+				request.getParameter("column"),
+				request.getParameter("search"));
+		System.out.println("servletPath(Separator):"+servletPath);
 		
-		System.out.println("servletPath:"+servletPath);
-		
-		String dir=servletPath.substring(1,servletPath.indexOf("."));
-		
-		System.out.println("dir:"+dir);
-		
-		cmd=CommandFactory.createCommand(dir, action, page);
 	}
 }

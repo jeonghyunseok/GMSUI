@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gms.web.command.Command;
 import com.gms.web.dao.MemberDAOImpl;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
@@ -33,26 +34,26 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<?> list(Object o) {
+	public List<?> list(Command cmd) {
 
-		return MemberDAOImpl.getInstance().selectAll(o);
+		return MemberDAOImpl.getInstance().selectAll(cmd);
 	}
 
 	@Override
-	public String countMembers() {
+	public String countMembers(Command cmd) {
 
-		return String.valueOf(MemberDAOImpl.getInstance().count());
+		return String.valueOf(MemberDAOImpl.getInstance().count(cmd));
 	}
 
 	@Override
-	public MemberBean findById(String id) {
+	public MemberBean findById(Command cmd) {
 
-		return MemberDAOImpl.getInstance().selectById(id);
+		return MemberDAOImpl.getInstance().selectById(cmd);
 	}
 
 	@Override
-	public List<MemberBean> findByName(String name) {
-		return MemberDAOImpl.getInstance().selectByName(name);
+	public List<MemberBean> findByName(Command cmd) {
+		return MemberDAOImpl.getInstance().selectByName(cmd);
 	}
 
 	@Override
@@ -63,15 +64,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String remove(String id) {
+	public String remove(Command cmd) {
 
-		return MemberDAOImpl.getInstance().delete(id).equals("1") ? "성공" : "실패";
+		return MemberDAOImpl.getInstance().delete(cmd).equals("1") ? "성공" : "실패";
 	}
 
 	@Override
 	public Map<String,Object> login(MemberBean bean) {
 		Map<String,Object> map =new HashMap<>();
-		MemberBean m=findById(bean.getId());
+		Command cmd=new Command();
+		cmd.setSearch(bean.getId());
+		MemberBean m=findById(cmd);
 		String page=
 		(m!=null)?
 				(bean.getPassword().equals(m.getPassword()))?"main":"login_fail":"join";
@@ -79,6 +82,4 @@ public class MemberServiceImpl implements MemberService {
 		map.put("user", m);		
 	return map;	
 	}
-
-
 	}
