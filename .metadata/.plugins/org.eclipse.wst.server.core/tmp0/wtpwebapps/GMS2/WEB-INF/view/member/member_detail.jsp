@@ -1,52 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="../common/common_head.jsp"/>
+<header>
 
-<div id="container">	
-		<table id="member_detail_tab">
-			<tr>
-				<td colspan="2" rowspan="3"><img src="${ctx}/img/defaultimg.jpg" ></td>
-				<td>NAME</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>ID</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>SSN</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>PHONE</td>
-				<td colspan="3"></td>
-			</tr>
-			<tr>
-				<td>e-mail</td>
-				<td colspan="3"></td>
-			</tr>
-			<tr>
-				<td>grade</td>
-				<td colspan="3">A</td>
-			</tr>
-			<tr>
-				<td>major</td>
-				<td colspan="3"></td>
-			</tr>
-			<tr>
-				<td>Regdate</td>
-				<td colspan="3"></td>
-			</tr>
-		</table>
-		<button id="list_btn" onclick="javascript:goList()">목록으로</button>
-		<button id="update_btn" onclick="javascript:goUpdate()">목록수정</button>
-</div>
-	<script>
-	function goList(){
-		location.href="${ctx}/member/member_list.jsp?action=list";
-	}
-	function goUpdate(){
-		location.href="${ctx}/member/member_update.jsp?name=null&email=null&phone=null&major_id=null&id=null&ssn=null";
-	}
-	</script>
-	
-<jsp:include page="../common/footer.jsp"></jsp:include>
+</header>
+      <div class="container">    
+          <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3">
+                  <div class="thumbnail text-center photo_view_postion_b" >
+                    <img src="${img}/꽃.jpg" alt="stack photo" class="img">
+                  </div>
+                </div>
+                <div class="col-md-9 col-xs-12 col-sm-6 col-lg-9">
+                    <div class="" style="border-bottom:1px solid black">
+                      <span style="font-size:50px">${requestScope.student.name}</span>
+                      &nbsp; &nbsp; &nbsp; &nbsp;
+                      <button id="updateBtn" onclick="moveTo('member','member_update')">정보수정</button>
+                    </div>
+                      <hr>
+                    <div class="col-md-8">  
+                    <ul class=" details">
+                      <li><p><span class="glyphicon glyphicon-earphone one" style="width:50px;"></span>${requestScope.student.phone}</p></li>
+                      <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>${requestScope.student.email}</p></li>
+                      <li><p><span class="glyphicon glyphicon-map-marker one" style="width:50px;"></span>${requestScope.student.regdate}</p></li>
+                      <li><p><span class="glyphicon glyphicon-credit-card one" style="width:50px;"></span>${requestScope.student.title}</p></li>
+                    </ul>
+                    </div>
+                    <div class="col-md-4">  
+                      <div class="col-sm-5 col-xs-6 tital " >Birthday:</div><div class="col-sm-7 col-xs-6 ">${requestScope.student.ssn}</div>
+                      <div class="clearfix"></div><div class="bot-border"></div>
+                      <div class="col-sm-5 col-xs-6 tital " >Gender:</div><div class="col-sm-7 col-xs-6 ">Prasad</div>
+                      <div class="clearfix"></div><div class="bot-border"></div>
+                      <div class="col-sm-5 col-xs-6 tital " >Ethnicity:</div><div class="col-sm-7 col-xs-6 ">sdfsdfsdfsdfsdf</div>
+                      <div class="clearfix"></div><div class="bot-border"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group row">
+                  <div class="col-md-12">
+                  <div class="form-group" style="border-bottom:1px solid black">
+                      <h2>CONTACT INFO</h2>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row"> 
+               <div class="col-md-4">
+                  <div class="col-sm-6 col-xs-6 tital " >Height(feet):</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Weight(lbs):</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Hair Color:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Hair Length:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Suit/Dress:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+               </div>
+               <div class="col-md-4">
+                  <div class="col-sm-6 col-xs-6 tital " >Shirt Size:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Shoe Size:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Bust:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Waist:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Inseam:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+               </div>
+               <div class="col-md-4">
+                  <div class="col-sm-6 col-xs-6 tital " >Hips:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Glove:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+                  <div class="col-sm-6 col-xs-6 tital " >Hat:</div><div class="col-sm-6 col-xs-6 contant_i">Prasad</div>
+                  <div class="clearfix"></div><div class="bot-border"></div>
+               </div>
+              </div>
+   
+          </div>
+      </div>

@@ -25,7 +25,7 @@ public class PageProxy extends Proxy{
       super.getRequest().setAttribute("prevBlock", arr[4]);
       super.getRequest().setAttribute("nextBlock", arr[5]);
       super.getRequest().setAttribute("list", list);
-      
+            
       
    }   
 

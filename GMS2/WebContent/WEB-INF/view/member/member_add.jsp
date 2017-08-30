@@ -16,7 +16,7 @@
 					<span >NAME</span> 
 					<input name="name" id="join_name" type="text" value="정약용"	placeholder="이름" /><br />
 					
-					<span i>SSN</span> 
+					<span>SSN</span> 
 					<input name="ssn" id="join_ssn" type="text" placeholder="ssn" /><br />
 					
 					<span >Phone</span> 
@@ -47,19 +47,5 @@
 				</fieldset>
 			</form>
 		</div>
-		
-		<script>
-		function memberAdd(){
-			var form=document.getElementById('join_form');
-			form.setAttribute('action','${ctx}/member.do');
-			form.setAttribute('method','post');
-			form.submit();
-			return true;
-			
-			var join_id = document.getElementById("join_id").value;	
-			var join_pass = document.getElementById("join_pass").value;	
-			var join_name = document.getElementById("join_name").value;	
-					
-		}	
-		</script>
+	
 <jsp:include page="../common/footer.jsp"></jsp:include>

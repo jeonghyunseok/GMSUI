@@ -24,7 +24,7 @@ public class SQL {
 	public static final String BOARD_LIST = String.format("SELECT * FROM Board", DB.TABLE_BOARD);
 	public static final String BOARD_SELECTBYID = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ID);
-	public static final String BOARD_COUNT = String.format("SELECT COUNT(*) AS COUNT FROM %s", DB.TABLE_BOARD);
+	public static final String BOARD_COUNT = String.format("SELECT COUNT(*) AS COUNT FROM %s ", DB.TABLE_BOARD);
 	public static final String BOARD_SELECTBYSEQ = String.format("SELECT * FROM %s WHERE %s=?", DB.TABLE_BOARD,
 			DB.BOARD_ARTICLE_SEQ);
 	public static final String BOARD_UPDATE = String.format("UPDATE %s SET %s=?,%s=? WHERE %s=?", DB.TABLE_BOARD,
@@ -35,7 +35,7 @@ public class SQL {
 		   		+ " from (select rownum rnum, s.* "
 	            + " from student s)t " 
 	            + " where t.rnum between ? and ? ";
-   public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) AS count FROM %s", DB.TABLE_STUDENT);
+   public static final String STUDENT_COUNT=String.format("SELECT COUNT(*) AS count FROM %s where %s like ?",DB.TABLE_STUDENT,"name");
    public static final String SEARCH=" select t2.* "
 		   + " from (select rownum seq, t.* "
 			+  " from(select * "
@@ -44,6 +44,8 @@ public class SQL {
 				+ " order by num desc)t)t2 "
 				+ " where t2.seq between ? and ? "
 				;
+   public static final String STUDENT_FINDBYNAME=String.format("SELECT * FROM STUDENT WHERE %s like ?" ,"name");
+   public static final String STUDENT_FINDBYID=String.format("SELECT * FROM %s WHERE id like ?","Student");
 
 }
 

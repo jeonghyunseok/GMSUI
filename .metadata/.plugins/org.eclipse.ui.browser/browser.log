@@ -51,3 +51,6 @@
 8월 28, 2017 11:57:34.95 [4560:6332:0828/115734.950:ERROR:ssl_client_socket_impl.cc(1072)] handshake failed; returned -1, SSL error code 1, net_error -103
 8월 28, 2017 12:32:55.29 [4560:6332:0828/123255.291:ERROR:ssl_client_socket_impl.cc(1072)] handshake failed; returned -1, SSL error code 1, net_error -103
 8월 28, 2017 17:32:31.98 [4560:6332:0828/173231.982:ERROR:ssl_client_socket_impl.cc(1072)] handshake failed; returned -1, SSL error code 1, net_error -103
+
+8월 30, 2017 08:59:31.01 NEW SESSION
+8월 30, 2017 08:59:31.01 [2340:3028:0830/085931.015:ERROR:ssl_client_socket_impl.cc(1072)] handshake failed; returned -1, SSL error code 1, net_error -103

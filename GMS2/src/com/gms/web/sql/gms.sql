@@ -8,6 +8,7 @@
 -- [6]GRADE_TAB
 -- [7]BOARD_TAB
 --*************************
+
 select *from major;
 select *from member;
 CREATE SEQUENCE seq

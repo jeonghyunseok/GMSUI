@@ -9,13 +9,22 @@ import lombok.Setter;
 
 public class Command implements Commandable{
 	@Getter 
-	protected String action,pageNumber,view;
+	protected String action,pageNumber,view,search,column;
+	
+	public void setSearch(String search) {
+		this.search = (search==null)?"none":search;
+		System.out.println("서치:"+this.search);
+		}
+	public void setColumn(String column) {
+		this.column =(column==null)?"none":column;
+	System.out.println("컬럼:"+this.column);
+	}
+
 	@Getter @Setter
-	protected String dir,startRow,endRow,page,search,column;
+	protected String dir,startRow,endRow,page;
 	public void setPageNumber(String pageNumber){
 		this.pageNumber=(pageNumber==null)?
 				"1":pageNumber;
-		System.out.println("페이지번호 : "+pageNumber);
 	}
 	
 	public void setAction(String action) {

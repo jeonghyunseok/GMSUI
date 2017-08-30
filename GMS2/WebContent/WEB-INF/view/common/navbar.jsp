@@ -58,7 +58,6 @@
 	</div>
 </nav>
 	<script>
-
 		function logout(dir,page){	
 		location.href="${ctx}/"+dir+".do?action=move&page="+page;
 		return true;
@@ -138,32 +137,76 @@
 		 	nav_move.setAttribute("onclick","moveTo('common','main')");
 		 	
 		 	var logout=document.getElementById("logout");
-			 logout.setAttribute("onclick","moveTo('common','index')");
+			 logout.setAttribute("onclick","moveTo('common','home')");
 		 	
 		 
 		 	u1c[0].setAttribute("onclick","moveTo('member','member_add')")
 		 	u1c[1].setAttribute("onclick","list('member','member_list','1')")
 		 	u1c[2].setAttribute("onclick","moveTo('member','member_search')")
 		 	u1c[3].setAttribute("role","separator");
-		 	u1c[3].setAttribute("class","divider");
-		 	u1c[4].setAttribute("onclick","deleteTarget('학생')")
+		 	u1c[4].setAttribute("class","divider");
+		 	u1c[5].setAttribute("onclick","deleteTarget('학생')")
 		 	
 		 	u2c[0].setAttribute("onclick","moveTo('grade','grade_add')")
 		 	u2c[1].setAttribute("onclick","list('grade','grade_list','1')")
 		 	u2c[2].setAttribute("onclick","moveTo('grade','grade_detail')")
 			u2c[3].setAttribute("role","separator");
-		 	u2c[3].setAttribute("class","divider");
-		 	u2c[4].setAttribute("onclick","deleteTarget('성적')");
+		 	u2c[4].setAttribute("class","divider");
+		 	u2c[5].setAttribute("onclick","deleteTarget('성적')");
 		 	
 		 	u3c[0].setAttribute("onclick","moveTo('board','board_add')")	
 		 	u3c[1].setAttribute("onclick","list('board','board_list','1')")	
 		 	u3c[2].setAttribute("onclick","moveTo('board','board_update')")	
 		 	u3c[3].setAttribute("role","separator");
-		 	u3c[3].setAttribute("class","divider");
-		 	u3c[4].setAttribute("onclick","deleteTarget('게시글')")
+		 	u3c[4].setAttribute("class","divider");
+		 	u3c[5].setAttribute("onclick","deleteTarget('게시글')")
 			
 		}
 		  	window.onload=navbarLoad();
 		
-		
+		  	function updateStudent(id){
+		  		alert('수정할 id'+id);
+		  		location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
+		  	}
+		  	function deleteStudent(id){
+		  		alert('삭제할id'+id);
+		  		location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
+		  	}
+		  	function detailStudent(id){
+		  		alert('조회할 id'+id);
+		  		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
+		  	}
+		  	function searchStudent(){
+		  		var search=document.getElementById('searchName').value;
+		  		alert(search);
+		  		location.href="${ctx}/member.do?action=search&page=member_list&search="+search;	
+		  	} 
+		  	 function test(){
+		    	   document.querySelector('#updateBtn').onclick=studentInfo;
+		     }
+		      function studentInfo(){
+		    	 var id='id',
+					id_val='${requestScope.student.id}',
+				name='name',
+					name_val='${requestScope.student.name}',
+				email='email',
+					email_val='${requestScope.student.email}'
+					;
+					sessionStorage.setItem(id,id_val);
+					sessionStorage.setItem(name,name_val);
+					sessionStorage.setItem(email,email_val);
+		     }
+		    	  window.addEventListener();
+		    function memberAdd(){
+		    			var form=document.getElementById('join_form');
+		    			form.setAttribute('action','${ctx}/member.do');
+		    			form.setAttribute('method','post');
+		    			form.submit();
+		    			return true;
+		    			
+		    			var join_id = document.getElementById("join_id").value;	
+		    			var join_pass = document.getElementById("join_pass").value;	
+		    			var join_name = document.getElementById("join_name").value;	
+		    					
+		  		}	
 	</script>

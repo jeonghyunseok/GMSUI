@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <jsp:include page="../common/common_head.jsp"/>
 
 <div id="container">
@@ -9,7 +8,7 @@
     <div class="input-group" style="margin:0 auto">
       <input type="text" id="searchName" name="searchName" class="form-control" placeholder="Search">
       <span class="input-group-btn">
-        <button class="btn btn-default"  type="button" onclick="searchStudent('${i.name}')">Go!</button>
+        <button class="btn btn-default" type="button" onclick="searchStudent('${i.name}')">Go!</button>
       </span>
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
@@ -87,23 +86,5 @@
 	  </ul>
 	</nav>
 </div>
-<script>
-function updateStudent(id){
-	alert('수정할 id'+id);
-	location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
-}
-function deleteStudent(id){
-	alert('삭제할id'+id);
-	location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
-}
-function detailStudent(id){
-	alert('조회할 id'+id);
-	location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
-}
-function searchStudent(){
-	var search=document.getElementById('searchName').value;
-	alert(search);
-	location.href="${ctx}/member.do?action=search&page=member_search&search="+search;	
-}
-</script>
+
 <jsp:include page="../common/footer.jsp"></jsp:include>

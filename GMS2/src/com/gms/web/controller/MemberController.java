@@ -37,7 +37,7 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 	 Separator.init(request);
 	 MemberBean member=new MemberBean();
 	 MemberService service=MemberServiceImpl.getInstance();
-	 Map<?, ?> map=null;
+	 Map<?, ?> map=new HashMap<>();
 	 PageProxy pxy=new PageProxy(request);
 	 Command cmd=new Command();
 	 pxy.setPageSize(5);
@@ -89,28 +89,36 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 	         break;
 	  case Action.UPDATE:
 		  cmd.setSearch(request.getParameter("id"));
-		  service.modify(service.findById(cmd));
+		 // service.modify(service.findById(cmd));
 		  System.out.println("member update Enter");
 		  	 DispatcherServlet.send(request, response);
 		  	break;
 	  case Action.SEARCH: 
 		  System.out.println("member search");
 		  map=ParamsIterator.execute(request);
-		   pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
 	           cmd=PageHandler.attr(pxy);
 	           cmd.setColumn("name");
 	           cmd.setSearch(String.valueOf(map.get("search")));
-	           request.setAttribute("list", service.findByName(cmd));
-	     	   DispatcherServlet.send(request, response);
+	           cmd.setStartRow(PageHandler.attr(pxy).getStartRow());
+	           cmd.setEndRow(PageHandler.attr(pxy).getEndRow());
+	           cmd.setPageNumber(request.getParameter("pageNumber"));
+	    	   pxy.setPageNumber(Integer.parseInt(cmd.getPageNumber()));
+	           pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
+	            pxy.execute(BlockHandler.attr(pxy), service.findByName(cmd));
+	  	       DispatcherServlet.send(request, response);
 		  break;
+		  
 	  case Action.DELETE:
 		  cmd.setSearch(request.getParameter("id"));
 		   	System.out.println("member delete Enter");
 		   	response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
 		  	break;
 	  case Action.DETAIL:
+		 
 		  cmd.setSearch(request.getParameter("id"));
+		 
 		  request.setAttribute("student",  service.findById(cmd));
+		 
 		  System.out.println("member detail Enter");
 		  DispatcherServlet.send(request, response);
 		  break;
